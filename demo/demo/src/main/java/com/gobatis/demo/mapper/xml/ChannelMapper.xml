@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gobatis.demo.mapper.ChannelMapper" >
+
+    <sql id="channel_columns" >
+        id, channel_name, description, create_user_id, is_deleted, create_time, last_updated_time
+    </sql>
+
+    <select id="get" parameterType="Long" resultType="Channel" >
+        SELECT <include refid="channel_columns" />
+        FROM channel WHERE id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="Channel" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO channel (channel_name, description, create_user_id, is_deleted )
+        VALUES (#{channelName}, #{description}, #{createUserId}, #{deleted} )
+    </insert>
+
+    <update id="update" parameterType="Channel">
+        UPDATE channel SET channel_name = #{channelName},
+                           description = #{description},
+                           is_deleted = #{deleted}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateIgnoreNull" parameterType="Channel">
+        UPDATE channel
+        <trim prefix="set" suffixOverrides=",">
+            <choose>
+                <when test="channelName !=null"> channel_name = #{channelName}, </when>
+                <otherwise> channel_name = channel.channel_name, </otherwise>
+            </choose>
+            <choose>
+                <when test="description !=null"> description = #{description}, </when>
+                <otherwise> description = channel.description, </otherwise>
+            </choose>
+            <choose>
+                <when test="deleted !=null"> is_deleted = #{deleted}, </when>
+                <otherwise> is_deleted = channel.is_deleted, </otherwise>
+            </choose>
+        </trim>
+        WHERE id = #{id}
+    </update>
+
+    <update id="remove" parameterType="Long">
+        UPDATE channel SET is_deleted = ${@com.poiii.chan.common.status.EDeleted@NOT_DELETED.code}
+        WHERE id=#{id}
+    </update>
+
+    <update id="removeList" parameterType="List">
+        UPDATE channel SET is_deleted = ${@com.poiii.chan.common.status.EDeleted@NOT_DELETED.code}
+        WHERE id IN
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item,jdbcType=BIGINT}
+        </foreach>
+    </update>
+
+    <select id="count">
+        SELECT count(*) from channel WHERE is_deleted = ${@com.poiii.chan.common.status.EDeleted@NOT_DELETED.code}
+    </select>
+
+
+    <select id="countByName" parameterType="String">
+        SELECT count(*) from channel WHERE channel_name = #{name}
+    </select>
+
+    <select id="list" resultType="Channel">
+        SELECT <include refid="channel_columns" /> FROM channel
+        WHERE is_deleted = ${@com.poiii.chan.common.status.EDeleted@NOT_DELETED.code}
+    </select>
+
+</mapper>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <properties>
+        <!--<property name="mapperLocations" value="classpath*:*Mapper.xml"/>-->
+        <property name="mapperLocations" value="classpath*:*Mapper.xml"/>
+    </properties>
+
+    <settings>
+        <!-- Globally enables or disables any caches configured in any mapper under this configuration -->
+        <setting name="cacheEnabled" value="false" />
+        <!--<setting name="lazyLoadingEnabled" value="true"/>-->
+        <!--<setting name="multipleResultSetsEnabled" value="true"/>-->
+        <!--<setting name="useColumnLabel" value="true"/>-->
+        <!--<setting name="useGeneratedKeys" value="false"/>-->
+        <!--<setting name="autoMappingBehavior" value="PARTIAL"/>-->
+        <!--<setting name="autoMappingUnknownColumnBehavior" value="WARNING"/>-->
+        <!--<setting name="defaultExecutorType" value="SIMPLE"/>-->
+        <!--<setting name="defaultStatementTimeout" value="25"/>-->
+        <!--<setting name="defaultFetchSize" value="100"/>-->
+        <!--<setting name="safeRowBoundsEnabled" value="false"/>-->
+        <!--<setting name="mapUnderscoreToCamelCase" value="false"/>-->
+        <!--<setting name="localCacheScope" value="SESSION"/>-->
+        <!--<setting name="jdbcTypeForNull" value="OTHER"/>-->
+        <!--<setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>-->
+
+
+        <!-- Sets the number of seconds the driver will wait for a result from the database -->
+        <setting name="defaultStatementTimeout" value="5"/>
+        <!-- Enables automatic mapping from classic database column names A_COLUMN to camel case classic Java property names aColumn -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- Allows JDBC support for generated keys. A compatible driver is required.
+        This setting forces generated keys to be used if set to true,
+         as some drivers deny compatibility but still work -->
+        <setting name="useGeneratedKeys" value="false"/>
+    </settings>
+
+    <typeAliases>
+        <typeAlias alias="Integer" type="java.lang.Integer" />
+        <typeAlias alias="Long" type="java.lang.Long" />
+        <typeAlias alias="Boolean" type="java.lang.Boolean" />
+        <typeAlias alias="String" type="java.lang.String" />
+        <typeAlias alias="Date" type="java.util.Date" />
+        <typeAlias alias="HashMap" type="java.util.HashMap" />
+        <typeAlias alias="LinkedHashMap" type="java.util.LinkedHashMap" />
+        <typeAlias alias="List" type="java.util.List" />
+        <typeAlias alias="ArrayList" type="java.util.ArrayList" />
+        <typeAlias alias="LinkedList" type="java.util.LinkedList" />
+        <package name="com.gobatis.demo.entity" />
+        <!--<package name="com.chch.chan.common.status" />-->
+    </typeAliases>
+
+    <typeHandlers>
+        <!--<typeHandler handler="com.chchchan.common.statuss.CodeEnumTypeHandler" javaType="EDeleted" />-->
+    </typeHandlers>
+
+    <!--<objectFactory></objectFactory>-->
+
+    <!--<objectWrapperFactory></objectWrapperFactory>-->
+
+    <!--<plugins>-->
+        <!--<plugin interceptor="com.github.pagehelper.PageInterceptor">-->
+            <!--<property name="helperDialect" value="mysql" />-->
+            <!--<property name="rowBoundsWithCount" value="false" />-->
+            <!--<property name="offsetAsPageNum" value="false" />-->
+        <!--</plugin>-->
+    <!--</plugins>-->
+
+    <!--<environments default="development">-->
+        <!--<environment id="development">-->
+            <!--<transactionManager type="JDBC"/>-->
+            <!--&lt;!&ndash; 需要重写datasourceFactory &ndash;&gt;-->
+            <!--<dataSource type="POOLED">-->
+                <!--<property name="driver" value="${driver}"/>-->
+                <!--<property name="url" value="${url}"/>-->
+                <!--<property name="username" value="${username}"/>-->
+                <!--<property name="password" value="${password}"/>-->
+            <!--</dataSource>-->
+        <!--</environment>-->
+    <!--</environments>-->
+
+    <!--<databaseIdProvider type=""></databaseIdProvider>-->
+
+    <!--<mappers>-->
+        <!--<mapper resource="classpath:**/*Mapper.xml" />-->
+        <!--<package name="com.chchuser.mapper" />-->
+        <!--<mapper resource="sample/mybatis/mapper/CityMapper.xml"/>-->
+        <!--<mapper resource="sample/mybatis/mapper/HotelMapper.xml"/>-->
+    <!--</mappers>-->
+
+
+
+
+
+</configuration>
