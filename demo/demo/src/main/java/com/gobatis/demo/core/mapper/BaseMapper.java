@@ -11,22 +11,29 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
-public interface BaseMapper<T extends Serializable, Criteria> {
+
+/**
+ * @author LiYuanying
+ */
+public interface BaseMapper<T extends Serializable, PK extends Serializable> {
 
     @InsertProvider(type = CreateSqlProvider.class, method = "sql")
     @Options(useGeneratedKeys = true)
-    void create(T entity);
+    void insert(T entity);
 
-    @UpdateProvider(type = UpdateSqlProvider.class, method = "sql")
+    @UpdateProvider(type = UpdateSqlProvider.class, method = "updateSql")
     boolean update(T entity);
 
+    @UpdateProvider(type = UpdateSqlProvider.class, method = "updateIgnoreNullSql")
+    boolean updateIgnoreNull(T entity);
+
     @DeleteProvider(type = DeleteSqlProvider.class, method = "sql")
-    boolean delete(Integer id);
+    boolean delete(PK id);
 
     @SelectProvider(type = FindOneSqlProvider.class, method = "sql")
-    T selectOne(Integer id);
+    T selectOne(PK id);
 
-    default Page<T> findPageByCriteria(Criteria criteria, Pageable pageable) {
+    default Page<T> findPageByCriteria(T criteria, Pageable pageable) {
         long total = __countByCriteria(criteria);
         if (total == 0) {
             return new PageImpl<>(Collections.emptyList(), pageable, total);
@@ -36,8 +43,39 @@ public interface BaseMapper<T extends Serializable, Criteria> {
     }
 
     @SelectProvider(type = CountByCriteriaSqlProvider.class, method = "sql")
-    long __countByCriteria(Criteria criteria);
+    long __countByCriteria(T criteria);
 
     @SelectProvider(type = SelectByCriteriaSqlProvider.class, method = "sql")
-    List<T> __selectByCriteria(Criteria criteria, RowBounds rowBounds);
+    List<T> __selectByCriteria(T criteria, RowBounds rowBounds);
+
+
+    /**
+     * 基本接口
+     */
+
+    //    int insert(T entity);
+
+//    int insert(Collection<T> entities);
+
+    //    int update(T entity);
+
+//    int update(Collection<T> entities);
+
+//    T selectOne(PK id);
+
+//    List<T> selectList(T entity);
+
+//    Page<T> selectPage(T entity);
+
+//    Set<Serializable> selectIds(T entity);
+
+//    int delete(Serializable id);
+
+//    int delete(T entity);
+
+//    int delete(Collection<Serializable> ids);
+
+    /**
+     * 增强功能 withLinks();
+     */
 }

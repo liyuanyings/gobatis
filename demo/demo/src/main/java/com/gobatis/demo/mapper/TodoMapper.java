@@ -5,5 +5,5 @@ import com.gobatis.demo.entity.Todo;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface TodoMapper extends BaseMapper<Todo, Todo> {
+public interface TodoMapper extends BaseMapper<Todo, Integer> {
 }

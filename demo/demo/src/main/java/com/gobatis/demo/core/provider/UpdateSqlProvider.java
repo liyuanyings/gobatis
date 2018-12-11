@@ -13,12 +13,20 @@ import java.util.stream.Stream;
  **/
 public class UpdateSqlProvider extends SqlProviderSupport{
 
-    public String sql(ProviderContext context) {
+    public String updateSql(ProviderContext context) {
         Class<?> entityType = entityType(context);
         return new SQL()
                 .UPDATE(tableName(entityType))
-                .SET(Stream.of(entityType.getDeclaredFields())
-                        .map(field -> columnName(field) + " = " + bindParameter(field)).toArray(String[]::new))
+                .SET(Stream.of(entityType.getDeclaredFields()).map(field -> bindParameter(field)).toArray(String[]::new)
+                ).WHERE("id = #{id}")
+                .toString();
+    }
+
+    public String updateIgnoreNullSql(ProviderContext context) {
+        Class<?> entityType = entityType(context);
+        return new SQL()
+                .UPDATE(tableName(entityType))
+                .SET(Stream.of(entityType.getDeclaredFields()).map(field -> bindParameter(field)).toArray(String[]::new))
                 .WHERE("id = #{id}")
                 .toString();
     }

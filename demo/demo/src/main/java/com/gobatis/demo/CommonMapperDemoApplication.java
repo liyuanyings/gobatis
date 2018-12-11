@@ -28,18 +28,19 @@ public class CommonMapperDemoApplication {
       newTodo.setFinished(Boolean.FALSE);
       newTodo.setCreatedAt(LocalDateTime.now());
       newTodo.setDeadline(LocalDate.now().plusDays(7));
-      todoMapper.create(newTodo);
+      todoMapper.insert(newTodo);
 
       Todo todo = todoMapper.selectOne(newTodo.getId());
       dump(todo);
 
       todo.setTitle(todo.getTitle() + " Edit");
+      todo.setTitle(null);
       todo.setFinished(Boolean.TRUE);
       todo.setFinishedAt(LocalDateTime.now());
       if (todoMapper.update(todo)) {
         Todo todoCriteria = new Todo();
         todoCriteria.setTitle("test Edit");
-        todoMapper.findPageByCriteria(todoCriteria, new PageRequest(0, 10))
+        todoMapper.findPageByCriteria(todoCriteria, PageRequest.of(0, 10))
           .forEach(this::dump);
       }
 

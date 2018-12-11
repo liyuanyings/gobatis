@@ -39,8 +39,13 @@ public class SqlProviderSupport {
     }
 
     protected String bindParameter(Field field) {
-        return "#{" + field.getName() + "}";
+        return columnName(field) + " = " + "#{" + field.getName() + "}";
     }
+
+    protected String bindParameterIgnoreNull(Field field) {
+        return columnName(field) + " = " + "#{" + field.getName() + "}";
+    }
+
 
     protected Object value(Object bean, Field field) {
         try {
