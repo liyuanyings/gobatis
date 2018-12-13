@@ -26,5 +26,4 @@ public class UpdateSqlProvider extends SqlProviderSupport{
     public String updateIgnoreNullSql(ProviderContext context) {
         return "dynamicSql";
     }
-
 }
